@@ -1,0 +1,13 @@
+mqtt:  
+  binary_sensor:
+    - name: "Examples's room door"
+      object_id: example_door
+      state_topic: "example/door/status"
+      payload_on: "ON"
+      availability:
+        - topic: "example/door/avaliability"
+          payload_available: "online"
+          payload_not_available: "offline"
+      qos: 0
+      device_class: opening
+      value_template: "{{ value_json.state }}"

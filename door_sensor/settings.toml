@@ -1,0 +1,11 @@
+WIFI_SSID = "network_name_here"          # NOTE: Rpi pico is limited to 2.4 GHZ networks, so you can't use your 5G wifi here!
+WIFI_PASSWORD = "network_password_here"
+
+mqtt_ip = "ip_address_of_your_home_assistant"
+mqtt_port = 1883
+mqtt_username = "username_for_mqtt_broker"
+mqtt_password = "password_for_mqtt_broker"
+
+mqtt_avaliability_topic = "example/door/avaliability
+mqtt_status_topic = "example/door/status"
+

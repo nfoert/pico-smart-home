@@ -1,0 +1,10 @@
+mqtt:
+  light:
+    - schema: json
+      name: "Example's Light Strip"
+      object_id: example_led1
+      state_topic: "example/led1/status"
+      command_topic: "example/led1/set"
+      brightness: true
+      color_mode: true
+      supported_color_modes: ["rgb"]

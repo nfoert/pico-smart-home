@@ -38,7 +38,7 @@ pin = board.GP1
 switch = False
 brightness = 0 # 0 / 255
 
-pixels = neopixel.NeoPixel(pin, 30)
+pixels = neopixel.NeoPixel(pin, int(os.getenv("number_of_leds")))
 r = 0
 g = 0
 b = 0

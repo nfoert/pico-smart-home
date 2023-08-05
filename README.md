@@ -1,7 +1,7 @@
 # Raspberry Pi Pico Smart Home
 **A collection of scripts for setting up Raspberry Pi Pico W as smart home devices and sensors.**
 
-Feel free to contribute to this. If you've made something IoT with Rpi Pico make a PR with your code. Try and make it fit the style which I've created, including `settings.toml`, `mqtt.yaml`, `instructions.md`, `lib`, and `main.py`
+Feel free to contribute to this. If you've made something IoT with Rpi Pico make a PR with your code. Try and make it fit the style which I've created, including `settings.toml`, `mqtt.yaml`, `instructions.md`, `lib`, and `main.py`.
 
 ## How to use this repo
 Each directory is for each kind of device. `main.py` is the main Python file that the microcontroller runs. `lib` contains any libraries that that specific device needs. `settings.toml` contains any configuration that each device needs. `mqtt.yaml` indicates the entity setup for each device in Home Assistant. `instructions.md` talks about the parts needed, what I used and how to solder everything together.

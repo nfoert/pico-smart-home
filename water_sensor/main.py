@@ -16,10 +16,10 @@ import time
 '''
 nfoert's collection of scripts for setting up Raspberry Pi Pico W as smart home devices and sensors.
 
-This is the door sensor. You should configure everything in the settings.toml file, and set the pin for the sensor below.
+This is the water sensor. You should configure everything in the settings.toml file, and set the pin for the sensor below.
 The sensor should be wired to your GPIO of choice and the 3v pin. (Pin 36)
 
-The sensor wakes up when the pin is triggered (door is open) it waits until the door is closed before going back to sleep.
+The sensor wakes up when the pin is triggered (sensor is wet) it waits until the sensor is no longer wet before going back to sleep.
 
 
 Thanks to:
@@ -48,15 +48,15 @@ pin = board.GP1
 '''
 
 
-# Setup on-board LED and the door sensor
+# Setup on-board LED and the water sensor
 led = DigitalInOut(board.LED)
 led.direction = Direction.OUTPUT
 
 led.value = True
 
-door_open = DigitalInOut(pin)
-door_open.direction = Direction.INPUT
-door_open.pull = Pull.DOWN
+wet_sensor = DigitalInOut(pin)
+wet_sensor.direction = Direction.INPUT
+wet_sensor.pull = Pull.DOWN
 
 aio_username = os.getenv("aio_username")
 aio_key = os.getenv("aio_key")
@@ -140,19 +140,19 @@ mqtt_client.loop()
 mqtt_client.publish(os.getenv('mqtt_status_topic'), '{"state":"ON"}')
 print("Sent message to broker")
 
-print("Waiting for door to close...")
+print("Waiting for the water to clear...")
 while True:
 
-    if door_open.value == False: # Door is open (We already updated the server so do nothing)
+    if wet_sensor.value == False: # Sensor is wet (We already updated the server so do nothing)
         pass
 
-    elif door_open.value == True: # Door is closed (Update the server and shut off)
-        print("Door is closed!")
+    elif wet_sensor.value == True: # Sensor is dry (Update the server and shut off)
+        print("Sensor is dry!")
         time.sleep(0.5)
         mqtt_client.publish(os.getenv('mqtt_status_topic'), '{"state":"OFF"}')
         print("Sent message to broker")
         time.sleep(0.5)
-        door_open.deinit()
+        wet_sensor.deinit()
         pin_alarm = alarm.pin.PinAlarm(pin=pin, value=False, pull=False)
         break
         

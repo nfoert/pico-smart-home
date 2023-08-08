@@ -63,11 +63,20 @@ def set_rgb(transition=None): # TODO: Transition support
 
 
 
+# Connect to the internet
 print(f"Connecting to {os.getenv('WIFI_SSID')}")
 
-wifi.radio.connect(os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD"))
+while True:
+    try:
+        wifi.radio.connect(os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD"))
+        break
+        
+    except Exception as e:
+        print(f"There was a problem connecting to WiFi! Trying again... {e}")
+        time.sleep(0.5)
+        continue
 
-print(f"Connected to {os.getenv('CIRCUITPY_WIFI_SSID')}!")
+print(f"Connected to {os.getenv('WIFI_SSID')}!")
 
 
 # Functions for MQTT
@@ -176,7 +185,15 @@ mqtt_client.on_message = message
 
 # Connect the client to the MQTT broker.
 print("Connecting to the broker...")
-mqtt_client.connect()
+while True:
+    try:
+        mqtt_client.connect()
+        break
+
+    except Exception as e:
+        print(f"There was a problem connecting to the broker! Trying again... '{e}'")
+        time.sleep(0.5)
+        continue
 
 while True:
     # Poll the message queue

@@ -1,0 +1,14 @@
+mqtt:  
+  binary_sensor:
+    - name: "Examples's room water sensor"
+      object_id: example_water
+      state_topic: "example/water/status"
+      payload_on: "ON"
+      availability:
+        - topic: "example/water/avaliability"
+          payload_available: "online"
+          payload_not_available: "offline"
+      qos: 0
+      device_class: opening
+      value_template: "{{ value_json.state }}"
+

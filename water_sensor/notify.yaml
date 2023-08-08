@@ -1,0 +1,13 @@
+notify: # You can setup automations to send an SMS to a user if the sensor has state changes
+  - name: "sms_example"
+    platform: smtp
+    server: "smtp.gmail.com" # This example uses Gmail
+    port: 587
+    timeout: 15
+    sender: "example@gmail.com" # The account you're sending the email from
+    encryption: starttls
+    username: "example@gmail.com" # Your email address
+    password: "your_app_password_here" # your app password for the Google Account you're sending the email from. (See instructions.md)
+    recipient:
+      - "example_number@vtext.com" # Example for sending the text message to a Verizon carrier via Verizon's SMS gateway (See instructions.md for more Gateways)
+    sender_name: "Home Assistant" # The message will be prefixed by this name in parenthesis. (Eg. '(Home Assistant)')

@@ -58,9 +58,6 @@ door_open = DigitalInOut(pin)
 door_open.direction = Direction.INPUT
 door_open.pull = Pull.DOWN
 
-aio_username = os.getenv("aio_username")
-aio_key = os.getenv("aio_key")
-
 # Connect to the internet
 print(f"Connecting to {os.getenv('WIFI_SSID')}")
 

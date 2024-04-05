@@ -107,7 +107,7 @@ def message(client, topic, message):
     print(f"New message on topic {topic}: {message}")
     message = json.loads(message)
 
-    if topic == "nfoert/led1/set":
+    if topic == os.getenv("mqtt_set_topic"):
         try:
             brightness = message["brightness"]
 

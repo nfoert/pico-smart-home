@@ -9,7 +9,7 @@ mqtt_password = "password_for_mqtt_broker"
 mqtt_set_topic = "example/led1/set
 mqtt_status_topic = "example/led1/status"
 
-refresh_rate = 0.1 # Checks for new messages on topics every 1/10 of a second
+refresh_rate = "0.1" # Checks for new messages on topics every 1/10 of a second
 # Has nothing to do with your monitor :D
 
 number_of_leds = 30

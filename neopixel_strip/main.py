@@ -149,12 +149,13 @@ def message(client, topic, message):
         except:
             pass
         
-        # TODO: Update the broker with current status
         status = { 
             "state": state,
-            "brightness":int(brightness),
-            "color":{"r":r, "g":g, "b":b}
+            "brightness": int(brightness),
+            "color": {"r":r, "g":g, "b":b}
         }
+
+        mqtt_client.publish(os.getenv("mqtt_status_topic"), json.dumps(status))
 
         if transition:
             set_rgb(transition=transition)
@@ -197,9 +198,14 @@ while True:
 
 while True:
     # Poll the message queue
-    mqtt_client.loop()
+    try:
+        mqtt_client.loop()
+
+    except MQTT.MMQTTException as e:
+        print(f"There was a problem! '{e}'")
+        continue
 
     # Send a new message
-    time.sleep(int(os.getenv("refresh_rate")))
+    time.sleep(float(os.getenv("refresh_rate")))
 
 

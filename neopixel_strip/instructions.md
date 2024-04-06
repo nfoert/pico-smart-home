@@ -11,5 +11,4 @@
 
 ## TO-DO
 - The devices auto-update main.py (If you have it enabled) from this repo when I make updates. It's sort of a pain to modify the code, especially if you have them tucked away somewhere.
-- Setup transition support
-- Home Assistant reports that the device's status is unknow. Figure out how the device can send it's current brightness and RGB back to Home Assistant.
+- Default transition

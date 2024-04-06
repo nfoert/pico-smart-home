@@ -46,21 +46,40 @@ prev_r = 0
 prev_g = 0
 prev_b = 0
 
-def set_rgb(transition=None): # TODO: Transition support
+def set_rgb(transition=None):
     global brightness
     global pixels
     global r
     global g
     global b
 
-    new_r = int((r / 255) * brightness)
-    new_g = int((g / 255) * brightness)
-    new_b = int((b / 255) * brightness)
+    if transition == None or transition == 0:
 
-    print(new_r, new_g, new_b)
+        new_r = int((r / 255) * brightness)
+        new_g = int((g / 255) * brightness)
+        new_b = int((b / 255) * brightness)
 
-    pixels.fill((new_r, new_g, new_b))
+        print(new_r, new_g, new_b)
 
+        pixels.fill((new_r, new_g, new_b))
+
+    else:
+        print(f"TRANSITION DURATION: {transition}")
+        transition_steps = transition * int(os.getenv("transition_step_resolution"))
+        transition_wait = transition / int(os.getenv("transition_step_resolution"))
+
+        red_step = (r - prev_r) / transition_steps
+        green_step = (g - prev_g) / transition_steps
+        blue_step = (b - prev_b) / transition_steps
+
+        for i in range(transition_steps):
+            pixels.fill((
+                prev_r + (red_step * (i + 1)),
+                prev_g + (green_step * (i + 1)),
+                prev_b + (blue_step * (i + 1))
+            ))
+
+            time.sleep(transition_wait)
 
 
 # Connect to the internet
@@ -107,7 +126,7 @@ def message(client, topic, message):
     print(f"New message on topic {topic}: {message}")
     message = json.loads(message)
 
-    if topic == os.getenv("mqtt_set_topic"):
+    if topic == "nfoert/led1/set":
         try:
             brightness = message["brightness"]
 
@@ -161,8 +180,7 @@ def message(client, topic, message):
             set_rgb(transition=transition)
 
         else:
-            set_rgb(transition=3)
-
+            set_rgb(transition=0)
 
 
 # Create a socket pool
@@ -207,5 +225,3 @@ while True:
 
     # Send a new message
     time.sleep(float(os.getenv("refresh_rate")))
-
-

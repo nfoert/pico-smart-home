@@ -13,3 +13,5 @@ refresh_rate = "0.1" # Checks for new messages on topics every 1/10 of a second
 # Has nothing to do with your monitor :D
 
 number_of_leds = 30
+
+transition_step_resolution = 50 # The number of steps to do per second of the transition

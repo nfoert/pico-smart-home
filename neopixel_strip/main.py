@@ -64,7 +64,6 @@ def set_rgb(transition=None):
         pixels.fill((new_r, new_g, new_b))
 
     else:
-        print(f"TRANSITION DURATION: {transition}")
         transition_steps = transition * int(os.getenv("transition_step_resolution"))
         transition_wait = transition / int(os.getenv("transition_step_resolution"))
 
@@ -126,7 +125,7 @@ def message(client, topic, message):
     print(f"New message on topic {topic}: {message}")
     message = json.loads(message)
 
-    if topic == "nfoert/led1/set":
+    if topic == os.getenv("mqtt_set_topic"):
         try:
             brightness = message["brightness"]
 
